@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CredWise Kids – Login / Register</title>
+  <meta name="description" content="Login or create a new account on CredWise Kids — the daily finance tracker for students under 18." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Login page styles -->
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<!-- Aurora background -->
+<div class="aurora"><span></span><span></span><span></span></div>
+
+<div class="page-wrap">
+  <div class="auth-container">
+
+    <!-- ══ LEFT: Branding panel ══ -->
+    <div class="brand-panel">
+      <div class="bp-logo">
+        <div class="bp-logo-icon">🎓</div>
+        <div class="bp-logo-text">
+          <div class="bp-name">CredWise Kids</div>
+          <div class="bp-sub">Daily Finance Tracker</div>
+        </div>
+      </div>
+
+      <div class="bp-headline">
+        Build Your<br>
+        <span class="gb">Financial Future</span><br>
+        <span class="gp">One Day at a Time</span>
+      </div>
+
+      <div class="bp-features">
+        <div class="bp-feat">
+          <div class="bp-feat-icon">🗓</div>
+          <div>
+            <div class="bp-feat-title">Daily Calendar Tracking</div>
+            <div class="bp-feat-desc">Log income & expenses every day. Accurate day counts per month including leap years.</div>
+          </div>
+        </div>
+        <div class="bp-feat">
+          <div class="bp-feat-icon">⚡</div>
+          <div>
+            <div class="bp-feat-title">Auto Credit Score</div>
+            <div class="bp-feat-desc">Score updates automatically on every save — no manual calculation needed.</div>
+          </div>
+        </div>
+        <div class="bp-feat">
+          <div class="bp-feat-icon">📊</div>
+          <div>
+            <div class="bp-feat-title">Monthly Analysis</div>
+            <div class="bp-feat-desc">Detailed stats for every month of the year with savings & expense rates.</div>
+          </div>
+        </div>
+        <div class="bp-feat">
+          <div class="bp-feat-icon">🏖️</div>
+          <div>
+            <div class="bp-feat-title">Weekend Smart Logic</div>
+            <div class="bp-feat-desc">Pocket money automatically excluded on Sat–Sun. Only occasional income allowed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-badge">✅ No PAN Card · No Banking Data Required</div>
+    </div>
+
+    <!-- ══ RIGHT: Auth panel ══ -->
+    <div class="auth-panel">
+
+      <div class="auth-top">
+        <h2>Welcome Back 👋</h2>
+        <p>Login or create a new account to track your finances</p>
+      </div>
+
+      <!-- Tab switcher -->
+      <div class="auth-tabs">
+        <button class="atab active" id="tab-login" onclick="showTab('login')">🔑 Login</button>
+        <button class="atab"        id="tab-reg"   onclick="showTab('reg')">✨ Register</button>
+      </div>
+
+      <!-- ── LOGIN FORM ── -->
+      <form class="auth-form show" id="form-login" onsubmit="handleLogin(event)">
+
+        <!-- Quick-select existing users -->
+        <div id="quickUsers" style="display:none;">
+          <div class="av-label">Quick Login — Registered Users:</div>
+          <div class="users-chip-wrap" id="userChips"></div>
+        </div>
+
+        <div class="field">
+          <label for="lUsername">Username</label>
+          <div class="inp-wrap">
+            <span class="inp-icon">👤</span>
+            <input class="inp" type="text" id="lUsername" placeholder="Enter your username" autocomplete="username" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="lPassword">Password</label>
+          <div class="pw-wrap inp-wrap">
+            <span class="inp-icon">🔒</span>
+            <input class="inp" type="password" id="lPassword" placeholder="Enter your password" autocomplete="current-password" />
+            <button type="button" class="pw-toggle" onclick="togglePw('lPassword',this)">👁</button>
+          </div>
+        </div>
+
+        <div class="auth-msg" id="loginMsg"></div>
+
+        <button type="submit" class="auth-btn" id="loginBtn">🚀 Login to CredWise</button>
+
+        <div class="auth-switch">
+          Don't have an account? <a onclick="showTab('reg')">Create one →</a>
+        </div>
+      </form>
+
+      <!-- ── REGISTER FORM ── -->
+      <form class="auth-form" id="form-reg" onsubmit="handleReg(event)">
+
+        <!-- Avatar picker -->
+        <div class="field">
+          <div class="av-label">Choose Your Avatar</div>
+          <div class="avatar-picker" id="avatarPicker">
+            <div class="av-opt active" data-av="🎓" onclick="setAvatar(this)">🎓</div>
+            <div class="av-opt" data-av="🦁" onclick="setAvatar(this)">🦁</div>
+            <div class="av-opt" data-av="🐯" onclick="setAvatar(this)">🐯</div>
+            <div class="av-opt" data-av="🦊" onclick="setAvatar(this)">🦊</div>
+            <div class="av-opt" data-av="🐼" onclick="setAvatar(this)">🐼</div>
+            <div class="av-opt" data-av="🐸" onclick="setAvatar(this)">🐸</div>
+            <div class="av-opt" data-av="🦅" onclick="setAvatar(this)">🦅</div>
+            <div class="av-opt" data-av="🐬" onclick="setAvatar(this)">🐬</div>
+            <div class="av-opt" data-av="🦋" onclick="setAvatar(this)">🦋</div>
+            <div class="av-opt" data-av="🌟" onclick="setAvatar(this)">🌟</div>
+            <div class="av-opt" data-av="🎯" onclick="setAvatar(this)">🎯</div>
+            <div class="av-opt" data-av="🚀" onclick="setAvatar(this)">🚀</div>
+          </div>
+        </div>
+
+        <!-- Name + Age row -->
+        <div class="field-row">
+          <div class="field">
+            <label for="rName">Full Name</label>
+            <div class="inp-wrap">
+              <span class="inp-icon">✏️</span>
+              <input class="inp" type="text" id="rName" placeholder="Your full name" autocomplete="name" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="rAge">Age</label>
+            <div class="inp-wrap">
+              <span class="inp-icon">🎂</span>
+              <input class="inp" type="number" id="rAge" placeholder="5–18" min="5" max="18" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Username -->
+        <div class="field">
+          <label for="rUsername">Username</label>
+          <div class="inp-wrap">
+            <span class="inp-icon">🆔</span>
+            <input class="inp" type="text" id="rUsername" placeholder="letters, numbers, _ only" autocomplete="username"
+                   oninput="validateUsername(this)" />
+          </div>
+        </div>
+
+        <!-- Password + Confirm -->
+        <div class="field-row">
+          <div class="field">
+            <label for="rPassword">Password</label>
+            <div class="pw-wrap inp-wrap">
+              <span class="inp-icon">🔒</span>
+              <input class="inp" type="password" id="rPassword" placeholder="Min 4 chars"
+                     autocomplete="new-password" oninput="checkStrength(this.value)" />
+              <button type="button" class="pw-toggle" onclick="togglePw('rPassword',this)">👁</button>
+            </div>
+            <div class="pw-strength">
+              <div class="pw-strength-bar"><div class="pw-strength-fill" id="pwFill"></div></div>
+              <div class="pw-strength-lbl" id="pwLbl">Enter a password</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rConfirm">Confirm Password</label>
+            <div class="pw-wrap inp-wrap">
+              <span class="inp-icon">✅</span>
+              <input class="inp" type="password" id="rConfirm" placeholder="Repeat password"
+                     autocomplete="new-password" oninput="checkMatch()" />
+              <button type="button" class="pw-toggle" onclick="togglePw('rConfirm',this)">👁</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-msg" id="regMsg"></div>
+
+        <button type="submit" class="auth-btn" id="regBtn">🎉 Create My Account</button>
+
+        <div class="auth-switch">
+          Already have an account? <a onclick="showTab('login')">Login →</a>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        Your data is saved locally on this device.<br>
+        <strong>CredWise Kids</strong> · No real banking data required.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- auth.js must load before login logic -->
+<script src="auth.js"></script>
+<script>
+/* ══════════════════════════════════════════
+   LOGIN PAGE LOGIC
+══════════════════════════════════════════ */
+
+let selectedAvatar = '🎓';
+
+/* If already logged in, go straight to app */
+(function() {
+  const s = cwGetSession();
+  if (s) window.location.replace('index.html');
+})();
+
+/* ── Show registered users as quick-select chips ── */
+function renderUserChips() {
+  const users = cwListUsers();
+  const wrap  = document.getElementById('quickUsers');
+  const chips = document.getElementById('userChips');
+  if (users.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  chips.innerHTML = users.map(u => `
+    <div class="user-chip" onclick="quickLogin('${u.username}')">
+      <span class="user-chip-av">${u.avatar}</span>
+      <span>${u.name}</span>
+    </div>
+  `).join('');
+}
+
+/* ── Tab switching ── */
+function showTab(name) {
+  document.getElementById('tab-login').classList.toggle('active', name === 'login');
+  document.getElementById('tab-reg').classList.toggle('active',   name === 'reg');
+  document.getElementById('form-login').classList.toggle('show',  name === 'login');
+  document.getElementById('form-reg').classList.toggle('show',    name === 'reg');
+  clearMsgs();
+}
+
+function clearMsgs() {
+  ['loginMsg','regMsg'].forEach(id => {
+    const el = document.getElementById(id);
+    el.className = 'auth-msg'; el.textContent = '';
+  });
+}
+
+/* ── Quick login by clicking a user chip ── */
+function quickLogin(username) {
+  document.getElementById('lUsername').value = username;
+  document.getElementById('lPassword').focus();
+}
+
+/* ── Avatar selection ── */
+function setAvatar(el) {
+  document.querySelectorAll('.av-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  selectedAvatar = el.dataset.av;
+}
+
+/* ── Password visibility toggle ── */
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  const showing = inp.type === 'text';
+  inp.type = showing ? 'password' : 'text';
+  btn.textContent = showing ? '👁' : '🙈';
+}
+
+/* ── Username validation indicator ── */
+function validateUsername(inp) {
+  const val = inp.value.trim();
+  const ok  = /^[a-zA-Z0-9_]{3,}$/.test(val);
+  inp.classList.toggle('ok',  ok && val.length > 0);
+  inp.classList.toggle('err', !ok && val.length > 0);
+}
+
+/* ── Password strength meter ── */
+function checkStrength(pw) {
+  const fill = document.getElementById('pwFill');
+  const lbl  = document.getElementById('pwLbl');
+  let score = 0;
+  if (pw.length >= 4)  score++;
+  if (pw.length >= 7)  score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+
+  const levels = [
+    { w: '0%',   bg: 'var(--dim)',   t: 'Enter a password' },
+    { w: '20%',  bg: 'var(--poor)',  t: 'Very Weak' },
+    { w: '40%',  bg: 'var(--poor)',  t: 'Weak' },
+    { w: '60%',  bg: 'var(--avg)',   t: 'Fair' },
+    { w: '80%',  bg: 'var(--good)',  t: 'Strong' },
+    { w: '100%', bg: '#38bdf8',      t: 'Very Strong 💪' },
+  ];
+  const lvl = pw.length === 0 ? levels[0] : levels[Math.min(score, 5)];
+  fill.style.width      = lvl.w;
+  fill.style.background = lvl.bg;
+  lbl.textContent       = lvl.t;
+  lbl.style.color       = lvl.bg;
+}
+
+/* ── Confirm password match indicator ── */
+function checkMatch() {
+  const pw  = document.getElementById('rPassword').value;
+  const cf  = document.getElementById('rConfirm');
+  const ok  = cf.value === pw && cf.value.length > 0;
+  cf.classList.toggle('ok',  ok);
+  cf.classList.toggle('err', !ok && cf.value.length > 0);
+}
+
+/* ── Show a message ── */
+function showMsg(id, text, type) {
+  const el = document.getElementById(id);
+  el.className   = 'auth-msg ' + type;
+  el.textContent = text;
+}
+
+/* ── Handle LOGIN submit ── */
+function handleLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const username  = document.getElementById('lUsername').value.trim();
+  const password  = document.getElementById('lPassword').value;
+
+  btn.classList.add('loading');
+  setTimeout(() => {
+    const result = cwLogin(username, password);
+    btn.classList.remove('loading');
+    if (result.ok) {
+      showMsg('loginMsg', `✅ Welcome back, ${result.user.name}! Loading your dashboard...`, 'succ');
+      setTimeout(() => window.location.href = 'index.html', 900);
+    } else {
+      showMsg('loginMsg', result.msg, 'err');
+      document.getElementById('lPassword').classList.add('err');
+      setTimeout(() => document.getElementById('lPassword').classList.remove('err'), 1500);
+    }
+  }, 500);
+}
+
+/* ── Handle REGISTER submit ── */
+function handleReg(e) {
+  e.preventDefault();
+  const btn = document.getElementById('regBtn');
+  const name     = document.getElementById('rName').value;
+  const age      = document.getElementById('rAge').value;
+  const username = document.getElementById('rUsername').value;
+  const password = document.getElementById('rPassword').value;
+  const confirm  = document.getElementById('rConfirm').value;
+
+  btn.classList.add('loading');
+  setTimeout(() => {
+    const result = cwRegister(name, age, username, password, confirm, selectedAvatar);
+    btn.classList.remove('loading');
+    if (result.ok) {
+      showMsg('regMsg', `🎉 Account created! Welcome, ${result.user.name}! Redirecting...`, 'succ');
+      setTimeout(() => window.location.href = 'index.html', 1000);
+    } else {
+      showMsg('regMsg', result.msg, 'err');
+    }
+  }, 500);
+}
+
+/* ── Init on page load ── */
+document.addEventListener('DOMContentLoaded', () => {
+  renderUserChips();
+
+  /* Pre-fill quick login on Escape from password field */
+  document.getElementById('lPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin(e);
+  });
+});
+</script>
+</body>
+</html>

@@ -378,6 +378,7 @@ function saveDay() {
     isWeekend:    we,
   });
   closeModal();
+  persistRecords();   /* ← auto-save to localStorage */
   refreshAll();
   showToast(`✅ ${MSHORT[mMonth]} ${mDay} saved! Score updated.`);
 }
@@ -386,6 +387,7 @@ function saveDay() {
 function clearDay() {
   delRec(activeYear, mMonth, mDay);
   closeModal();
+  persistRecords();   /* ← auto-save to localStorage */
   refreshAll();
   showToast(`🗑 ${MSHORT[mMonth]} ${mDay} cleared.`);
 }
@@ -823,14 +825,40 @@ function showToast(msg) {
 }
 
 /* ══════════════════════════════════════════
+   DATA PERSISTENCE — per user via localStorage
+══════════════════════════════════════════ */
+let _session = null;
+
+/** Save current records object to localStorage under the logged-in user */
+function persistRecords() {
+  if (_session) cwSaveRecords(_session.username, records);
+}
+
+/* ══════════════════════════════════════════
    INITIALISATION
 ══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  /* ─ Auth guard: redirect to login if no session ─ */
+  _session = cwGetSession();
+  if (!_session) { window.location.replace('login.html'); return; }
+
+  /* ─ Populate nav user chip ─ */
+  document.getElementById('navAv').textContent   = _session.avatar || '🎓';
+  document.getElementById('navName').textContent = _session.name;
+  document.getElementById('navAge').textContent  = `Age ${_session.age} · Member`;
+
+  /* ─ Load THIS user's saved records from localStorage ─ */
+  records = cwLoadRecords(_session.username);
+
+  /* ─ Render all panels ─ */
   document.getElementById('yrVal').textContent  = activeYear;
   document.getElementById('yrVal2').textContent = activeYear;
   renderCalendar();
   updateStats();
+  autoCalcScore();
   renderAnalysis();
+
+  showToast(`👋 Welcome back, ${_session.name}!`);
 });
 
 /* Close modal on Escape key */

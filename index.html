@@ -11,8 +11,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+  <!-- ★ Auth module (loaded first so guard runs immediately) ★ -->
+  <script src="auth.js"></script>
+
+  <!-- ★ Immediate auth guard — redirects before page renders ★ -->
+  <script>
+    (function(){
+      if (!cwGetSession()) window.location.replace('login.html');
+    })();
+  </script>
+
   <!-- ★ CSS file link ★ -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── User profile chip in nav ── */
+    .user-chip-nav {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 100px; padding: 6px 8px 6px 14px;
+    }
+    .user-av  { font-size: 1.3rem; }
+    .user-inf { display:flex; flex-direction:column; }
+    .user-nm  { font-size: .8rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .user-ag  { font-size: .62rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
+    .logout-btn {
+      background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.25);
+      border-radius: 100px; padding: 5px 12px;
+      font-size: .72rem; font-weight: 700; color: #fca5a5;
+      cursor: pointer; transition: all 0.3s; font-family: inherit;
+    }
+    .logout-btn:hover { background: rgba(239,68,68,.22); color: var(--poor); border-color: var(--poor); }
+  </style>
 </head>
 <body>
 
@@ -130,6 +160,15 @@
         <button onclick="chgYear(1)">▶</button>
       </div>
       <div class="nav-pill">🏆 Hackathon</div>
+      <!-- User info + Logout -->
+      <div class="user-chip-nav">
+        <div class="user-av" id="navAv">🎓</div>
+        <div class="user-inf">
+          <div class="user-nm" id="navName">—</div>
+          <div class="user-ag" id="navAge">Age —</div>
+        </div>
+        <button class="logout-btn" onclick="cwLogout()">Sign Out</button>
+      </div>
     </div>
   </nav>
 
@@ -365,7 +404,8 @@
 
 </div><!-- /.wrap -->
 
-<!-- ★ JavaScript file link ★ -->
+<!-- ★ JavaScript files ★ -->
+<!-- auth.js already loaded in <head> -->
 <script src="script.js"></script>
 
 </body>
