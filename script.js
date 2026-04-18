@@ -846,9 +846,30 @@ function exportMyAccount() {
 }
 
 /* ══════════════════════════════════════════
+   THEME TOGGLE
+══════════════════════════════════════════ */
+function toggleTheme() {
+  let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  theme = theme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('xj_theme', theme);
+  
+  const toggleBtn = document.getElementById('themeToggle');
+  if (toggleBtn) {
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+/* ══════════════════════════════════════════
    INITIALISATION
 ══════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  /* ─ Initialise Theme Toggle Button ─ */
+  const currTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const tBtn = document.getElementById('themeToggle');
+  if (tBtn) tBtn.textContent = currTheme === 'dark' ? '☀️' : '🌙';
+
   /* ─ Auth guard: redirect to login if no session ─ */
   _session = cwGetSession();
   if (!_session) { window.location.replace('login.html'); return; }

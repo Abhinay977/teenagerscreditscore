@@ -13,6 +13,13 @@
 
   <!-- Login page styles -->
   <link rel="stylesheet" href="login.css" />
+  <!-- Apply theme before render to prevent flash -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('xj_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
   <style>
     /* ── Import Account section ── */
     .import-section {
@@ -44,6 +51,9 @@
 
 <!-- Aurora background -->
 <div class="aurora"><span></span><span></span><span></span></div>
+
+<!-- Floating Theme Toggle -->
+<button class="theme-toggle-login" id="themeToggle" onclick="toggleThemeLogin()" title="Switch theme">🌙</button>
 
 <div class="page-wrap">
   <div class="auth-container">
@@ -258,6 +268,22 @@
 <script src="auth.js"></script>
 <script>
 /* ══════════════════════════════════════════
+   THEME TOGGLE
+══════════════════════════════════════════ */
+function toggleThemeLogin() {
+  let theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  theme = theme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('xj_theme', theme);
+  
+  const toggleBtn = document.getElementById('themeToggle');
+  if (toggleBtn) {
+    toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+/* ══════════════════════════════════════════
    LOGIN PAGE LOGIC
 ══════════════════════════════════════════ */
 
@@ -453,6 +479,11 @@ function handleImport(input) {
 
 /* ── Init on page load ── */
 document.addEventListener('DOMContentLoaded', () => {
+  /* ─ Initialise Theme Toggle Button ─ */
+  const currTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const tBtn = document.getElementById('themeToggle');
+  if (tBtn) tBtn.textContent = currTheme === 'dark' ? '☀️' : '🌙';
+
   renderUserChips();
 
   /* Pre-fill quick login on Escape from password field */

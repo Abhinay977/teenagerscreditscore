@@ -301,3 +301,69 @@ body {
 ::-webkit-scrollbar-track { background: var(--surf); border-radius: 10px; }
 ::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ══════════════════════════════════════════
+   THEME TOGGLE (login page)
+══════════════════════════════════════════ */
+.theme-toggle-login {
+  position: fixed; top: 18px; right: 18px; z-index: 10;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  color: #f0f4ff; font-size: 1.1rem;
+  cursor: pointer; transition: all 0.35s cubic-bezier(.4,0,.2,1);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.theme-toggle-login:hover {
+  background: rgba(59,130,246,.2); border-color: var(--accent);
+  transform: rotate(22deg) scale(1.1);
+}
+
+/* ══════════════════════════════════════════
+   ☀️  LIGHT MODE — login page
+══════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:      #eef2ff;
+  --surf:    #f8faff;
+  --card:    #ffffff;
+  --border:  rgba(15,23,42,0.09);
+  --bh:      rgba(59,130,246,0.45);
+  --alit:    rgba(59,130,246,0.08);
+  --text:    #0f172a;
+  --muted:   #475569;
+  --dim:     #94a3b8;
+  --shadow:  0 24px 80px rgba(15,23,42,0.14);
+}
+
+[data-theme="light"] body { background: var(--bg); color: var(--text); }
+[data-theme="light"] .aurora span { opacity: .04; filter: blur(160px); }
+
+/* Brand panel still looks great on light (keep dark) */
+[data-theme="light"] .brand-panel {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 60%, #1e293b 100%);
+}
+
+/* Auth container */
+[data-theme="light"] .auth-container {
+  box-shadow: 0 12px 60px rgba(15,23,42,.13), 0 0 0 1px rgba(15,23,42,.06);
+}
+
+/* Input fields */
+[data-theme="light"] .inp { background: #f1f5f9; }
+
+/* Inactive tabs hover */
+[data-theme="light"] .atab:not(.active):hover { color: var(--text); background: #f1f5f9; }
+
+/* Toggle button on light bg */
+[data-theme="light"] .theme-toggle-login {
+  background: rgba(255,255,255,.7); border-color: rgba(15,23,42,.15);
+  color: #334155;
+}
+
+/* Auth message on light */
+[data-theme="light"] .auth-msg.err  { background: rgba(239,68,68,.08);  color: #b91c1c; }
+[data-theme="light"] .auth-msg.succ { background: rgba(16,185,129,.08); color: #047857; }
+
+/* Scrollbar */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #e8edf8; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: #94a3b8; }

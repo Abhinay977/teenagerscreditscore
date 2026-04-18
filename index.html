@@ -18,6 +18,9 @@
   <script>
     (function(){
       if (!cwGetSession()) window.location.replace('login.html');
+      /* Apply saved theme immediately to prevent flash */
+      var t = localStorage.getItem('xj_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
 
@@ -161,6 +164,8 @@
       <div class="live-badge">
         <div class="live-dot"></div>Auto Score Live
       </div>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch theme">🌙</button>
       <div class="yr-selector">
         <button onclick="chgYear(-1)">◀</button>
         <span class="yr-val" id="yrVal">2026</span>
