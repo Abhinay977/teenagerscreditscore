@@ -161,9 +161,6 @@
       </div>
     </div>
     <div class="nav-right">
-      <div class="live-badge">
-        <div class="live-dot"></div>Auto Score Live
-      </div>
       <!-- Theme Toggle -->
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch theme">🌙</button>
       <div class="yr-selector">
@@ -188,7 +185,7 @@
   <section class="hero">
     <div class="hero-badge">✦ Daily Records · Auto Score · No PAN Required</div>
     <h1><span class="gb">Daily Habits</span> Build<br>Your <span class="gp">Credit Score</span></h1>
-    <p>Click any day to log your money. Score <strong>auto-calculates</strong> as you go — no manual button needed.</p>
+    <p>Click any day to log your money. Click the refresh button to update your score on the 1st of every month.</p>
     <div class="hero-rules">
       <div class="rule-pill wd">✅ Mon–Fri: Pocket Money allowed</div>
       <div class="rule-pill we">🏖️ Sat–Sun: Pocket Money excluded</div>
@@ -247,14 +244,14 @@
       <!-- Auto Credit Score Sidebar -->
       <div class="score-sidebar">
         <div class="card">
-          <div class="score-header-lbl" style="margin-bottom:14px;">Auto Credit Score</div>
+          <div class="score-header-lbl" style="margin-bottom:14px;">Your Credit Score</div>
           <div class="score-panel-inner">
 
             <!-- Placeholder before first data entry -->
             <div class="score-ph" id="scorePh">
               <div class="ph-icon">📊</div>
               <p style="font-size:.84rem;line-height:1.7;">
-                Log your first day —<br>score appears automatically!
+                Log your first day —<br>then refresh your score!
               </p>
             </div>
 
@@ -311,9 +308,16 @@
 
               <!-- Score info line -->
               <div style="font-size:.7rem;color:var(--muted);text-align:center;line-height:1.6;" id="scoreInfoLbl"></div>
+              
+            </div>
             </div>
 
           </div>
+          
+          <!-- Refresh button matching screenshot (ALWAYS VISIBLE) -->
+          <button onclick="checkRefreshScore()" style="width: 100%; display: block; padding: 12px; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.4); color: #60a5fa; border-radius: 100px; font-size: 0.8rem; font-weight: 700; margin-top: 20px; cursor: pointer; text-align: center; font-family: inherit;">
+            🔄 Refresh Credit Score
+          </button>
         </div>
       </div>
     </div>
@@ -415,6 +419,60 @@
   </footer>
 
 </div><!-- /.wrap -->
+
+<!-- ════════════════════════════════════════
+     MODAL — Countdown (CIBIL clone)
+════════════════════════════════════════ -->
+<div class="cibil-modal-ov" id="cibilModalOv" onclick="closeCibilModalOv(event)">
+  <div class="cibil-modal">
+    <button class="cibil-close" onclick="closeCibilModal()">✖</button>
+    
+    <!-- ★ UNIQUE ANIMATED GAUGE ★ -->
+    <div class="radar-gauge-container">
+      <svg viewBox="0 0 200 120" class="neon-arc-svg">
+        <defs>
+          <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ef4444" />
+            <stop offset="50%" stop-color="#f59e0b" />
+            <stop offset="100%" stop-color="#10b981" />
+          </linearGradient>
+          <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Track -->
+        <path d="M 25 100 A 75 75 0 0 1 175 100" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18" stroke-linecap="round"/>
+        
+        <!-- Glowing dashed progress indicating building score -->
+        <path class="arc-pulse" d="M 25 100 A 75 75 0 0 1 175 100" fill="none" stroke="url(#arcGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="8 6" filter="url(#neonGlow)"/>
+        
+        <!-- Scanning Needle -->
+        <g class="scanning-needle" transform="translate(100, 100)">
+          <path d="M 0 0 L -6 -60 L 6 -60 Z" fill="rgba(255, 255, 255, 0.15)"/>
+          <line x1="0" y1="0" x2="0" y2="-65" stroke="#f8fafc" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="6" fill="#1e293b" stroke="#f8fafc" stroke-width="2"/>
+        </g>
+
+      </svg>
+      <div style="display:flex; justify-content:space-between; padding:0 10px; margin-top:-6px;">
+        <span style="font-size:0.75rem; font-weight:800; color:var(--poor);">0</span>
+        <span style="font-size:0.75rem; font-weight:800; color:var(--good);">900</span>
+      </div>
+    </div>
+
+    <p class="modal-instruction-text">
+      After every month end, <br>your new score will show on the Next Month 1st day.
+    </p>
+
+    <h2 id="cibilNextUpd">--</h2>
+    
+  </div>
+</div>
 
 <!-- ★ JavaScript files ★ -->
 <!-- auth.js already loaded in <head> -->
